@@ -1,0 +1,188 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  /* ─── Teal / Navy palette (from logo) ─── */
+  --color-teal-deep: #091f2c;
+  --color-teal-dark: #0c2d3d;
+  --color-teal-mid: #133d50;
+  --color-teal: #1a5c73;
+  --color-cyan: #4ec5d4;
+  --color-cyan-light: #6fd6e3;
+  --color-cyan-muted: #3ea8b6;
+  --color-cyan-pale: rgba(78, 197, 212, 0.08);
+  --color-cyan-glow: rgba(78, 197, 212, 0.15);
+
+  /* ─── Neutrals ─── */
+  --color-slate-50: #f7f9fa;
+  --color-slate-100: #eef2f4;
+  --color-slate-200: #dce3e6;
+  --color-slate-300: #b8c5cb;
+  --color-slate-400: #8a9da6;
+  --color-slate-500: #647983;
+  --color-slate-600: #4a5f6a;
+  --color-slate-700: #344750;
+  --color-slate-800: #1f333d;
+  --color-slate-900: #142129;
+
+  --font-heading: var(--font-sora);
+  --font-sans: var(--font-manrope);
+}
+
+:root {
+  --background: #f7f9fa;
+  --foreground: #142129;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* ─── Flame animation (subtle, precise) ─── */
+
+@keyframes flame-pulse {
+  0%, 100% {
+    transform: scaleY(1) scaleX(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scaleY(1.04) scaleX(0.97);
+    opacity: 0.88;
+  }
+}
+
+@keyframes flame-sway {
+  0%, 100% { transform: rotate(0deg); }
+  33% { transform: rotate(-1.5deg); }
+  66% { transform: rotate(1deg); }
+}
+
+@keyframes glow-breathe {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.65; transform: scale(1.05); }
+}
+
+@keyframes hero-glow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(1.04);
+  }
+}
+
+/* ─── Entrance animations ─── */
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-32px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(32px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.94); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes light-spread {
+  from { opacity: 0; clip-path: inset(50% 50% 50% 50%); }
+  to { opacity: 1; clip-path: inset(0% 0% 0% 0%); }
+}
+
+/* ─── Animation utilities ─── */
+
+.animate-fade-up {
+  animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.animate-fade-in {
+  animation: fade-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.animate-slide-left {
+  animation: slide-in-left 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.animate-slide-right {
+  animation: slide-in-right 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.animate-scale-in {
+  animation: scale-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.animate-light-spread {
+  animation: light-spread 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-600 { animation-delay: 600ms; }
+.delay-700 { animation-delay: 700ms; }
+.delay-800 { animation-delay: 800ms; }
+
+/* ─── Scroll reveal ─── */
+
+.reveal-hidden { opacity: 0; }
+.reveal-visible { opacity: 1; }
+
+/* ─── Flame classes ─── */
+
+.flame-outer {
+  transform-origin: center bottom;
+  animation: flame-sway 3.5s ease-in-out infinite, flame-pulse 2.5s ease-in-out infinite;
+}
+.flame-inner {
+  transform-origin: center bottom;
+  animation: flame-pulse 2s ease-in-out infinite 0.3s;
+}
+.candle-glow {
+  animation: glow-breathe 3.5s ease-in-out infinite;
+}
+
+/* ─── Interactive cards ─── */
+
+.card-lift {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.3s ease;
+}
+.card-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(9, 31, 44, 0.08);
+}
+
+/* ─── Selection ─── */
+
+::selection {
+  background-color: rgba(78, 197, 212, 0.25);
+  color: #091f2c;
+}
+
+/* ─── Focus ─── */
+
+:focus-visible {
+  outline: 2px solid #4ec5d4;
+  outline-offset: 2px;
+}
