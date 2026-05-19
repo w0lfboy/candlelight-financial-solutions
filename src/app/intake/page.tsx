@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import SubpageHeader from "@/components/SubpageHeader";
 
 const STEPS = [
   { id: 1, label: "About You" },
@@ -251,7 +252,7 @@ export default function IntakePage() {
   if (submitted) {
     return (
       <>
-        <Header />
+        <SubpageHeader />
         <main className="min-h-screen bg-slate-50 pt-28 pb-20">
           <div className="mx-auto max-w-2xl px-6 text-center">
             <div className="rounded-2xl bg-white p-12 shadow-sm border border-slate-100">
@@ -300,7 +301,7 @@ export default function IntakePage() {
 
   return (
     <>
-      <Header />
+      <SubpageHeader />
       <main className="min-h-screen bg-slate-50 pt-28 pb-20">
         <div className="mx-auto max-w-3xl px-6">
           {/* Header */}
@@ -811,32 +812,5 @@ export default function IntakePage() {
         </div>
       </main>
     </>
-  );
-}
-
-function Header() {
-  return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-teal-deep/95 backdrop-blur-md shadow-sm shadow-black/10">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
-        <Link href="/" className="group">
-          <Image
-            src="/cfs-icon.png"
-            alt="Candlelight Financial Solutions"
-            width={40}
-            height={40}
-            priority
-            className="h-9 w-9 rounded-md transition-transform duration-300 group-hover:scale-105"
-            style={{ width: "2.25rem", height: "2.25rem" }}
-          />
-        </Link>
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-sm font-medium text-white/70 transition-colors hover:text-cyan"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Back to Home
-        </Link>
-      </nav>
-    </header>
   );
 }

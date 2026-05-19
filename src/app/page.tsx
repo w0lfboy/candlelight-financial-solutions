@@ -103,6 +103,7 @@ const navLinks = [
   { label: "Services", href: "#services" },
   { label: "Process", href: "#process" },
   { label: "Insights", href: "#insights" },
+  { label: "Calculator", href: "/calculator" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -473,46 +474,37 @@ export default function Home() {
           </ScrollReveal>
 
           <ScrollReveal delay={150}>
-            <form className="mx-auto mt-12 max-w-lg space-y-4" action="#" method="POST">
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div>
-                  <label htmlFor="firstName" className="sr-only">First name</label>
-                  <input type="text" id="firstName" name="firstName" placeholder="First name" required
-                    className="w-full rounded-lg border border-white/10 bg-teal-dark/50 px-4 py-3.5 text-white placeholder-slate-400/60 outline-none transition-all duration-300 focus:border-cyan/40 focus:ring-2 focus:ring-cyan/15" />
-                </div>
-                <div>
-                  <label htmlFor="lastName" className="sr-only">Last name</label>
-                  <input type="text" id="lastName" name="lastName" placeholder="Last name" required
-                    className="w-full rounded-lg border border-white/10 bg-teal-dark/50 px-4 py-3.5 text-white placeholder-slate-400/60 outline-none transition-all duration-300 focus:border-cyan/40 focus:ring-2 focus:ring-cyan/15" />
-                </div>
+            <div className="mx-auto mt-12 max-w-2xl space-y-8">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-stretch sm:justify-center sm:gap-5">
+                <Link
+                  href="/intake"
+                  className="group inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-cyan px-8 py-4 text-base font-semibold text-teal-deep shadow-sm transition-all duration-300 hover:bg-cyan-light hover:shadow-md sm:max-w-xs"
+                >
+                  Start client intake
+                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                </Link>
+                <Link
+                  href="/calculator"
+                  className="inline-flex flex-1 items-center justify-center rounded-xl border border-white/20 bg-white/5 px-8 py-4 text-base font-semibold text-white/90 backdrop-blur-sm transition-all duration-300 hover:border-cyan/40 hover:bg-white/10 hover:text-cyan sm:max-w-xs"
+                >
+                  Try retirement calculator
+                </Link>
               </div>
-              <div>
-                <label htmlFor="email" className="sr-only">Email address</label>
-                <input type="email" id="email" name="email" placeholder="Email address" required
-                  className="w-full rounded-lg border border-white/10 bg-teal-dark/50 px-4 py-3.5 text-white placeholder-slate-400/60 outline-none transition-all duration-300 focus:border-cyan/40 focus:ring-2 focus:ring-cyan/15" />
-              </div>
-              <div>
-                <label htmlFor="phone" className="sr-only">Phone number (optional)</label>
-                <input type="tel" id="phone" name="phone" placeholder="Phone number (optional)"
-                  className="w-full rounded-lg border border-white/10 bg-teal-dark/50 px-4 py-3.5 text-white placeholder-slate-400/60 outline-none transition-all duration-300 focus:border-cyan/40 focus:ring-2 focus:ring-cyan/15" />
-              </div>
-              <div>
-                <label htmlFor="message" className="sr-only">Tell us about yourself</label>
-                <textarea id="message" name="message" rows={4}
-                  placeholder="Tell us a bit about yourself and what you're looking for..."
-                  className="w-full rounded-lg border border-white/10 bg-teal-dark/50 px-4 py-3.5 text-white placeholder-slate-400/60 outline-none transition-all duration-300 focus:border-cyan/40 focus:ring-2 focus:ring-cyan/15 resize-none" />
-              </div>
-              <button type="submit"
-                className="group w-full inline-flex items-center justify-center gap-2 rounded-lg bg-cyan py-3.5 text-base font-semibold text-teal-deep transition-all duration-300 hover:bg-cyan-light hover:gap-3"
-              >
-                Schedule a Consultation
-                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-              </button>
-              <p className="text-center text-xs text-slate-400/60">
+              <p className="text-center text-sm leading-relaxed text-slate-400">
+                The intake takes a few minutes and helps us prepare for a
+                focused first conversation. Prefer email only?{" "}
+                <a
+                  href="mailto:info@candlelightfs.com"
+                  className="font-medium text-cyan underline-offset-2 hover:text-cyan-light hover:underline"
+                >
+                  info@candlelightfs.com
+                </a>
+              </p>
+              <p className="text-center text-xs text-slate-500/80">
                 We&apos;ll respond within one business day. Your information is
                 kept private and secure.
               </p>
-            </form>
+            </div>
           </ScrollReveal>
         </div>
       </section>
@@ -549,9 +541,21 @@ export default function Home() {
               <ul className="mt-4 space-y-3">
                 {navLinks.map((link) => (
                   <li key={link.href}>
-                    <a href={link.href} className="text-sm text-slate-400 transition-colors hover:text-cyan">
-                      {link.label}
-                    </a>
+                    {link.href.startsWith("/") ? (
+                      <Link
+                        href={link.href}
+                        className="text-sm text-slate-400 transition-colors hover:text-cyan"
+                      >
+                        {link.label}
+                      </Link>
+                    ) : (
+                      <a
+                        href={link.href}
+                        className="text-sm text-slate-400 transition-colors hover:text-cyan"
+                      >
+                        {link.label}
+                      </a>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -568,9 +572,9 @@ export default function Home() {
                   </a>
                 </li>
                 <li>
-                  <a href="#contact" className="transition-colors hover:text-cyan">
+                  <Link href="/intake" className="transition-colors hover:text-cyan">
                     Schedule a consultation
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>

@@ -9,8 +9,13 @@ const navLinks = [
   { label: "Services", href: "#services" },
   { label: "Process", href: "#process" },
   { label: "Insights", href: "#insights" },
+  { label: "Calculator", href: "/calculator" },
   { label: "Contact", href: "#contact" },
 ];
+
+const scrollSectionIds = navLinks
+  .filter((l) => l.href.startsWith("#"))
+  .map((l) => l.href.slice(1));
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -27,7 +32,7 @@ export default function Navigation() {
       totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0;
     setScrollProgress(progress);
 
-    const sections = navLinks.map((l) => l.href.slice(1));
+    const sections = scrollSectionIds;
     for (let i = sections.length - 1; i >= 0; i--) {
       const el = document.getElementById(sections[i]);
       if (el && el.getBoundingClientRect().top <= 120) {
@@ -73,7 +78,7 @@ export default function Navigation() {
         className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8"
         aria-label="Primary navigation"
       >
-        <a href="#" className="group">
+        <Link href="/" className="group">
           <Image
             src="/cfs-icon.png"
             alt="Candlelight Financial Solutions"
@@ -83,25 +88,39 @@ export default function Navigation() {
             className="h-9 w-9 rounded-md transition-transform duration-300 group-hover:scale-105"
             style={{ width: "2.25rem", height: "2.25rem" }}
           />
-        </a>
+        </Link>
 
         <div className="hidden lg:flex lg:items-center lg:gap-8">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className={`relative text-sm font-medium transition-colors duration-200 hover:text-cyan ${
-                activeSection === link.href.slice(1)
-                  ? "text-cyan"
-                  : "text-white/70"
-              }`}
-            >
-              {link.label}
-              {activeSection === link.href.slice(1) && (
-                <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full bg-cyan/60" />
-              )}
-            </a>
-          ))}
+          {navLinks.map((link) => {
+            const isHash = link.href.startsWith("#");
+            const sectionId = isHash ? link.href.slice(1) : "";
+            const active = isHash && activeSection === sectionId;
+            if (!isHash) {
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="relative text-sm font-medium text-white/70 transition-colors duration-200 hover:text-cyan"
+                >
+                  {link.label}
+                </Link>
+              );
+            }
+            return (
+              <a
+                key={link.href}
+                href={link.href}
+                className={`relative text-sm font-medium transition-colors duration-200 hover:text-cyan ${
+                  active ? "text-cyan" : "text-white/70"
+                }`}
+              >
+                {link.label}
+                {active && (
+                  <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full bg-cyan/60" />
+                )}
+              </a>
+            );
+          })}
           <Link
             href="/intake"
             className="ml-4 inline-flex items-center rounded-lg border border-cyan/30 bg-cyan/10 px-5 py-2.5 text-sm font-semibold text-cyan transition-all duration-300 hover:bg-cyan hover:text-teal-deep hover:border-cyan"
@@ -145,21 +164,40 @@ export default function Navigation() {
         }`}
       >
         <div className="flex h-full flex-col items-center justify-center gap-8">
-          {navLinks.map((link, i) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setIsMobileOpen(false)}
-              className="font-heading text-2xl font-semibold text-white transition-all duration-300 hover:text-cyan"
-              style={{
+          {navLinks.map((link, i) => {
+              const isHash = link.href.startsWith("#");
+              const linkClass =
+                "font-heading text-2xl font-semibold text-white transition-all duration-300 hover:text-cyan";
+              const anim = {
                 transitionDelay: isMobileOpen ? `${i * 50}ms` : "0ms",
                 opacity: isMobileOpen ? 1 : 0,
                 transform: isMobileOpen ? "translateY(0)" : "translateY(10px)",
-              }}
-            >
-              {link.label}
-            </a>
-          ))}
+              };
+              if (!isHash) {
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setIsMobileOpen(false)}
+                    className={linkClass}
+                    style={anim}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              }
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setIsMobileOpen(false)}
+                  className={linkClass}
+                  style={anim}
+                >
+                  {link.label}
+                </a>
+              );
+            })}
           <Link
             href="/intake"
             onClick={() => setIsMobileOpen(false)}
