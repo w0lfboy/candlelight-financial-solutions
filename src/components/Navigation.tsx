@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const navLinks = [
   { label: "About", href: "#about" },
@@ -101,12 +102,12 @@ export default function Navigation() {
               )}
             </a>
           ))}
-          <a
-            href="#contact"
+          <Link
+            href="/intake"
             className="ml-4 inline-flex items-center rounded-lg border border-cyan/30 bg-cyan/10 px-5 py-2.5 text-sm font-semibold text-cyan transition-all duration-300 hover:bg-cyan hover:text-teal-deep hover:border-cyan"
           >
             Get Started
-          </a>
+          </Link>
         </div>
 
         <button
@@ -159,8 +160,8 @@ export default function Navigation() {
               {link.label}
             </a>
           ))}
-          <a
-            href="#contact"
+          <Link
+            href="/intake"
             onClick={() => setIsMobileOpen(false)}
             className="mt-4 inline-flex items-center rounded-lg bg-cyan px-8 py-3 text-base font-semibold text-teal-deep transition-all hover:bg-cyan-light"
             style={{
@@ -172,7 +173,7 @@ export default function Navigation() {
             }}
           >
             Get Started
-          </a>
+          </Link>
         </div>
       </div>
     </header>

@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import ScrollReveal from "@/components/ScrollReveal";
 import CountUp from "@/components/CountUp";
 import Image from "next/image";
+import Link from "next/link";
 
 /* ─── Service icons ─── */
 
@@ -146,13 +147,13 @@ export default function Home() {
           </p>
 
           <div className="animate-fade-up delay-400 mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-            <a
-              href="#contact"
+            <Link
+              href="/intake"
               className="group inline-flex items-center gap-2 rounded-lg bg-cyan px-8 py-3.5 text-base font-semibold text-teal-deep transition-all duration-300 hover:bg-cyan-light hover:gap-3"
             >
               Schedule a Consultation
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-            </a>
+            </Link>
             <a
               href="#about"
               className="inline-flex items-center rounded-lg border border-white/15 px-8 py-3.5 text-base font-medium text-white/80 transition-all duration-300 hover:border-cyan/40 hover:text-cyan"
