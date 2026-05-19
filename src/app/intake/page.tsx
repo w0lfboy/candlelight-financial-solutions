@@ -229,7 +229,17 @@ export default function IntakePage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-      if (!res.ok) throw new Error("Submission failed");
+      const body = (await res.json().catch(() => null)) as
+        | { error?: string; success?: boolean }
+        | null;
+      if (!res.ok) {
+        const msg =
+          typeof body?.error === "string" && body.error.trim()
+            ? body.error
+            : "Something went wrong. Please try again or email us at info@candlelightfs.com.";
+        setError(msg);
+        return;
+      }
       setSubmitted(true);
     } catch {
       setError("Something went wrong. Please try again or email us directly at info@candlelightfs.com.");

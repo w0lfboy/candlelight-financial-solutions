@@ -35,6 +35,16 @@ Submissions from `/intake` are sent to **`info@candlelightfs.com`** by default.
 
 **Testing before DNS:** Resend’s shared test domain only allows limited recipients. For a quick test, temporarily set `INTAKE_NOTIFICATION_TO` to the email you used to sign up for Resend and use Resend’s documented test “from” address until `candlelightfs.com` is verified.
 
+### If the form shows an error after Submit
+
+After redeploying with env vars, open the form again and submit — the message should now include **Resend’s reason** (for example domain not verified).
+
+1. **Resend → Domains:** `candlelightfs.com` must be **Verified** (green), not only “pending”.
+2. **`INTAKE_FROM_EMAIL`:** Must be an address **on that verified domain**, e.g. `Candlelight Financial Solutions <intake@candlelightfs.com>`. Do not use `notifications@...` until that exact mailbox’s domain is verified in Resend (or use the same address Resend shows as allowed).
+3. **`RESEND_API_KEY`:** Must be the full key starting with `re_`, with no extra spaces. Redeploy after changing variables (Deployments → … → Redeploy).
+
+**Vercel red dots** next to variables mean they are stored as **Sensitive** — that is normal, not an error.
+
 ## Connect `candlelightfs.com` on Vercel (with GoDaddy DNS)
 
 Keep hosting on **Vercel**. Use GoDaddy only to manage **DNS** so the domain points at Vercel (you do not need GoDaddy website “hosting” for this Next.js app).

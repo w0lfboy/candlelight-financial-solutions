@@ -11,6 +11,14 @@ const DEFAULT_FROM =
 
 type IntakePayload = Record<string, unknown>;
 
+function resendErrorMessage(error: unknown): string {
+  if (error && typeof error === "object" && "message" in error) {
+    const m = (error as { message?: unknown }).message;
+    if (typeof m === "string" && m.trim()) return m.trim();
+  }
+  return "The email service rejected the send. Check Resend domain verification and your From address.";
+}
+
 function formatIntakeLines(data: IntakePayload): string {
   const line = (label: string, value: string | string[] | undefined) => {
     if (value === undefined || value === "") return `${label}: —`;
@@ -109,7 +117,7 @@ export async function POST(request: NextRequest) {
     if (error) {
       console.error("[intake] Resend error:", error);
       return Response.json(
-        { error: "Failed to send notification email." },
+        { error: resendErrorMessage(error) },
         { status: 502 }
       );
     }
