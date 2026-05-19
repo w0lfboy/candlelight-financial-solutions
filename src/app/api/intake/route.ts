@@ -11,6 +11,29 @@ const DEFAULT_FROM =
 
 type IntakePayload = Record<string, unknown>;
 
+/** Resend requires reply_to as `x@y.z` or `Name <x@y.z>` — omit if we can't build a safe value. */
+function formatReplyTo(name: string, email: string): string | undefined {
+  const raw = String(email ?? "").trim().replace(/[\u200B-\u200D\uFEFF]/g, "");
+  if (!raw || raw.length > 320) return undefined;
+  // Plain single address only (no display-name fragment in the field)
+  if (/[\s<>(),;]/.test(raw)) return undefined;
+  const at = raw.lastIndexOf("@");
+  if (at < 1 || at === raw.length - 1) return undefined;
+  const local = raw.slice(0, at);
+  const domain = raw.slice(at + 1);
+  if (!domain.includes(".") || local.length === 0) return undefined;
+
+  const safeName = String(name ?? "")
+    .trim()
+    .replace(/[\r\n<>"]/g, "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 120);
+
+  if (safeName.length > 0) return `${safeName} <${raw}>`;
+  return raw;
+}
+
 function resendErrorMessage(error: unknown): string {
   if (error && typeof error === "object" && "message" in error) {
     const m = (error as { message?: unknown }).message;
@@ -98,6 +121,7 @@ export async function POST(request: NextRequest) {
     const from = process.env.INTAKE_FROM_EMAIL?.trim() || DEFAULT_FROM;
     const prospectEmail = String(data.email ?? "").trim();
     const prospectName = `${data.firstName ?? ""} ${data.lastName ?? ""}`.trim();
+    const replyTo = formatReplyTo(prospectName, prospectEmail);
 
     const text = formatIntakeLines(data);
     const html = `<pre style="font-family:system-ui,sans-serif;font-size:14px;line-height:1.5;white-space:pre-wrap">${escapeHtml(
@@ -108,7 +132,7 @@ export async function POST(request: NextRequest) {
     const { error } = await resend.emails.send({
       from,
       to: [to],
-      replyTo: prospectEmail || undefined,
+      ...(replyTo ? { replyTo } : {}),
       subject: `New intake request — ${prospectName || "prospect"}`,
       text,
       html,
