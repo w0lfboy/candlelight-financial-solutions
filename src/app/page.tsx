@@ -80,7 +80,7 @@ const services = [
 
 const clientProfiles = [
   { title: "Healthcare & Tech Professionals", description: "Navigating equity compensation, high-income tax planning, and building long-term wealth alongside demanding careers." },
-  { title: "Business Owners", description: "Aligning business growth with personal wealth — from cash flow strategies to succession and exit planning." },
+  { title: "Real Estate Agents", description: "Commission-based income, variable cash flow, and self-employment — we help you coordinate tax-aware saving, Solo 401(k) options, and a plan that fits how you actually earn." },
   { title: "Retirees & Pre-Retirees", description: "Transitioning into retirement with confidence through income strategies, Social Security optimization, and legacy planning." },
   { title: "Young Families", description: "Getting ahead early with college savings, insurance coverage, budgeting, and building a foundation for generational wealth." },
 ];
@@ -94,6 +94,7 @@ const processSteps = [
 
 const insightsPlaceholder = [
   { category: "Retirement", title: "When Should You Actually Start Planning for Retirement?", excerpt: "The best time to start was yesterday. The second best time is today. Here's what to focus on at every stage.", date: "Coming Soon" },
+  { category: "Self-Employed", title: "Solo 401(k)s for Real Estate Professionals", excerpt: "Independent agents often have access to powerful retirement savings tools — but only if they're set up and funded with intention. Here's what to know.", date: "Coming Soon" },
   { category: "Tax Planning", title: "5 Tax Strategies Most Families Overlook", excerpt: "Smart tax planning isn't about tricks — it's about intentional decisions that compound over decades.", date: "Coming Soon" },
   { category: "Life Transitions", title: "Navigating Financial Decisions During Major Life Changes", excerpt: "Marriage, new baby, career change, inheritance — how to make confident financial moves when everything feels uncertain.", date: "Coming Soon" },
 ];
@@ -205,7 +206,9 @@ export default function Home() {
               <p className="mt-4 text-lg leading-relaxed text-slate-600">
                 We believe financial planning should provide clarity and
                 confidence, guiding you through every stage of life with a
-                strategy that evolves alongside you.
+                strategy that evolves alongside you — including self-employed
+                professionals such as real estate agents exploring Solo 401(k)
+                and other retirement options.
               </p>
             </ScrollReveal>
 

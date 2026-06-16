@@ -38,7 +38,9 @@ export const metadata: Metadata = {
     "Charles Schwab custodian",
     "personalized financial planning",
     "healthcare professional financial advisor",
-    "business owner financial planning",
+    "real estate agent financial advisor",
+    "solo 401k",
+    "self-employed retirement planning",
   ],
   authors: [{ name: "Candlelight Financial Solutions" }],
   openGraph: {
@@ -167,7 +169,7 @@ export default function RootLayout({
         name: "Who does Candlelight Financial Solutions work with?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "We work with healthcare and tech professionals, business owners, retirees and pre-retirees, and young families who value long-term relationships and collaborative financial planning.",
+          text: "We work with healthcare and tech professionals, real estate agents and other self-employed professionals, retirees and pre-retirees, and young families who value long-term relationships and collaborative financial planning.",
         },
       },
     ],
